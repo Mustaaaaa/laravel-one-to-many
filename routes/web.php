@@ -21,7 +21,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 Route::resource('projects',ProjectController::class);
-Route::get('/dashboard', function () {
+Route::get('/admin', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 

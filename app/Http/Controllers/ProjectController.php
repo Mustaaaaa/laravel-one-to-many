@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Type;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -19,11 +22,12 @@ class ProjectController extends Controller
     }
     public function create()
     {
-        return view('projects.create');
+        $types = Type::all();
+        return view('projects.create', compact('types'));
     }
     public function store(Request $request)
     {
-
+        // dd($request->all());
         $form_data = $request->all();
 
         $request->validate([
@@ -31,7 +35,9 @@ class ProjectController extends Controller
             'description' => 'nullable|max:2000',
             'date_of_creation' => 'required|date',
             'link' => 'nullable|url',
-            'created_by' => 'required|max:100'
+            'created_by' => 'required|max:100',
+            'type_id' => 'nullable|exists:types,id'
+
         ]);
 
         $new_project = Project::create($form_data);
@@ -41,10 +47,11 @@ class ProjectController extends Controller
 
         return to_route('projects.show', $new_project);
     }
-    public function edit(Project $project)
+    public function edit($id)
     {
-
-        return view('projects.edit', compact('project'));
+        $project = Project::find($id);
+        $types = Type::all();
+        return view('projects.edit', compact('project', 'types'));
     }
     public function update(Request $request, Project $project)
     {
@@ -53,7 +60,8 @@ class ProjectController extends Controller
             'description' => 'nullable|max:2000',
             'date_of_creation' => 'required|date',
             'link' => 'nullable|url',
-            'created_by' => 'required|max:100'
+            'created_by' => 'required|max:100',
+            'type_id' => 'nullable|exists:types,id'
         ]);
 
         $form_data = $request->all();

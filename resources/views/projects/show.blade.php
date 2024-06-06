@@ -1,4 +1,4 @@
-@extends('layouts.apppp')
+@extends('layouts.app')
 
 @section('content')
 <main>
@@ -22,6 +22,9 @@
 
                 <h5 class="card-title">Created by:</h5>
                 <p class="card-text">{{ $project->created_by }}</p>
+
+                <h5 class="card-title">Type:</h5>
+                <p class="card-text">{{ $project->type ? $project->type->name : 'Not defined' }}</p>
                 <div class="row justify-content-center">
                     @auth
                     <a href="{{ route('projects.edit',$project) }}" class="btn btn-success m-2 col-1">Edit</a>

@@ -1,4 +1,4 @@
-@extends('layouts.apppp')
+@extends('layouts.app')
 
 @section('content')
 <main>
@@ -15,6 +15,7 @@
                     <th scope="col">Date of Creation</th>
                     <th scope="col">Link</th>
                     <th scope="col">Created By</th>
+                    <th scope="col">Type</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +26,7 @@
                     <td>{{ $project->date_of_creation }}</td>
                     <td><a href="{{ $project->link }}">{{ $project->link }}</a></td>
                     <td>{{ $project->created_by }}</td>
+                    <td>{{ $project->type ? $project->type->name : 'Not defined' }}</td>
                 </tr>
                 @endforeach
             </tbody>
