@@ -40,8 +40,10 @@ class ProjectController extends Controller
 
         ]);
 
+            
+        $form_data['slug'] = Str::slug($form_data['title']);
+        
         $new_project = Project::create($form_data);
-
 
         $new_project->save();
 
