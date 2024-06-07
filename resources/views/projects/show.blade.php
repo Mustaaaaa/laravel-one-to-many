@@ -36,6 +36,16 @@
                     @endauth
                     <a href="{{ route('projects.index')}}" class="btn btn-primary m-2 col-1"><---</a>
                 </div>
+
+                @if ($project->type)
+
+                <h5 class="card-title mt-3">Related projects:</h5>
+                @foreach ($project->type->projects as $related_project)
+                <p>
+                    <a class="card-text" href="{{route('projects.show', $related_project)}}">{{$related_project->title}}</a>
+                </p>
+                @endforeach
+                @endif
             </div>
         </div>
     </div>
